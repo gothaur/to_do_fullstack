@@ -17,9 +17,6 @@ function TasksLogic() {
         setName("");
         setDescription("");
         setAdded(true);
-      })
-      .catch((response) => {
-        console.log(response.data);
       });
   };
 
