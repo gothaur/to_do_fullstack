@@ -177,3 +177,7 @@ yarn-error.log*
 /frontend/.idea
 /.idea
 /frontend/node_modules
+
+# ================== IDE ====================
+.vscode
+.vscode/
