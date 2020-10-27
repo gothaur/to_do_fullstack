@@ -5,7 +5,7 @@ const TaskView = (props) => {
 
   return (
     <Fragment>
-      <div className="col mb-4" key={task.id}>
+      <div className="col mb-4">
         <div className="card h-100 mb-3" style={{ width: "18rem" }}>
           <div className="card-body">
             <h5 className="card-title">{task.name}</h5>

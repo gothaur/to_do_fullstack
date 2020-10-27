@@ -1,10 +1,13 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import axiosInstance from "../../services/axiosAPI";
+import Cookies from "js-cookie";
 
 const handleLogout = () => {
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
+  // localStorage.removeItem("access_token");
+  // localStorage.removeItem("refresh_token");
+  Cookies.remove("access_token");
+  Cookies.remove("refresh_token");
   axiosInstance.defaults.headers["Authorization"] = null;
   // window.location.href = "/login";
 };

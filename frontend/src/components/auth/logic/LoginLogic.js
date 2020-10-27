@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axiosInstance from "../../../services/axiosAPI";
+import Cookies from "js-cookie";
 
 function LoginLogic() {
   const [username, setUsername] = useState("");
@@ -22,8 +23,16 @@ function LoginLogic() {
           "JWT " + response.data.access;
         // localStorage.setItem("access_token", response.data.access);
         // localStorage.setItem("refresh_token", response.data.refresh);
-        sessionStorage.setItem("access_token", response.data.access);
-        sessionStorage.setItem("refresh_token", response.data.refresh);
+        Cookies.set("access_token", response.data.access, {
+          expires: 1,
+          path: "",
+        });
+        Cookies.set("refresh_token", response.data.refresh, {
+          expires: 7,
+          path: "",
+        });
+        // sessionStorage.setItem("access_token", response.data.access);
+        // sessionStorage.setItem("refresh_token", response.data.refresh);
         setLoading(false);
         setUsername("");
         setPassword("");

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const baseURL = "http://0.0.0.0:8000/";
 
@@ -9,8 +10,11 @@ const axiosInstance = axios.create({
     // Authorization: localStorage.getItem("access_token")
     //   ? "JWT " + localStorage.getItem("access_token")
     //   : null,
-    Authorization: sessionStorage.getItem("access_token")
-      ? `JWT ${sessionStorage.getItem("access_token")}`
+    // Authorization: sessionStorage.getItem("access_token")
+    //   ? `JWT ${sessionStorage.getItem("access_token")}`
+    //   : null,
+    Authorization: Cookies.get("access_token")
+      ? `JWT ${Cookies.get("access_token")}`
       : null,
     "Content-Type": "application/json",
     accept: "application/json",
@@ -25,7 +29,7 @@ axiosInstance.interceptors.response.use(
     // Prevent infinite loops
     if (
       error.response.status === 401 &&
-      originalRequest.url === baseURL + "auth/token/refresh/"
+      originalRequest.url === baseURL + "/auth/token/refresh/"
     ) {
       window.location.href = "/login";
       return Promise.reject(error);
@@ -36,7 +40,8 @@ axiosInstance.interceptors.response.use(
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
-      const refreshToken = sessionStorage.getItem("refresh_token");
+      // const refreshToken = sessionStorage.getItem("refresh_token");
+      const refreshToken = Cookies.get("refresh_token");
 
       if (refreshToken) {
         const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
@@ -49,8 +54,10 @@ axiosInstance.interceptors.response.use(
           return axiosInstance
             .post("/auth/token/refresh/", { refresh: refreshToken })
             .then((response) => {
-              sessionStorage.setItem("access_token", response.data.access);
-              sessionStorage.setItem("refresh_token", response.data.refresh);
+              // sessionStorage.setItem("access_token", response.data.access);
+              // sessionStorage.setItem("refresh_token", response.data.refresh);
+              Cookies.get("access_token", response.data.access);
+              Cookies.get("refresh_token", response.data.refresh);
 
               axiosInstance.defaults.headers["Authorization"] =
                 "JWT " + response.data.access;
