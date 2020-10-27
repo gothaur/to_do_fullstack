@@ -14,6 +14,7 @@ class Task(models.Model):
     created_date = models.DateTimeField(
         auto_now_add=True,
     )
+    deadline = models.DateField()
     description = models.CharField(
         max_length=512,
     )

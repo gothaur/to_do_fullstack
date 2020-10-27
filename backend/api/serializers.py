@@ -1,3 +1,6 @@
+from django.utils import (
+    timezone
+)
 from django.contrib.auth import (
     get_user_model,
 )
@@ -17,6 +20,12 @@ User = get_user_model()
 
 class TaskSerializer(serializers.ModelSerializer):
 
+    created_date = serializers.DateTimeField(
+        default=serializers.CreateOnlyDefault(
+            timezone.now,
+        )
+    )
+
     owner = serializers.SerializerMethodField()
 
     class Meta:
@@ -27,33 +36,8 @@ class TaskSerializer(serializers.ModelSerializer):
     def get_owner(obj):
         return obj.owner.username
 
-
-# class UserSerializer(serializers.ModelSerializer):
-
-#     username = serializers.CharField()
-#     password = serializers.CharField(
-#         write_only=True,
-#         validators=[
-#             validate_password,
-#         ],
-#     )
-
-#     class Meta:
-#         model = User
-#         fields = [
-#             'username',
-#             'password',
-#         ]
-#         extra_kwargs = {
-#             'password': {
-#                 'write_only': True,
-#             },
-#         }
-
-#     def create(self, validated_data):
-#         password = validated_data.pop('password', None)
-#         new_user = self.Meta.model(**validated_data)
-#         if password is not None:
-#             new_user.set_password(password)
-#         new_user.save()
-#         return new_user
+    def validate_deadline(self, value):
+        if value < timezone.localdate():
+            raise serializers.ValidationError(
+                "Data utworzenia nie może być z przeszłości")
+        return value
