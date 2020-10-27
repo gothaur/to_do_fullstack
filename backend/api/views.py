@@ -37,9 +37,6 @@ class TaskRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class TasksAPIListView(ListCreateAPIView):
 
-    # authentication_classes = (
-    #     IsAuthenticated,
-    # )
     filter_fields = (
         'completed',
         'name',

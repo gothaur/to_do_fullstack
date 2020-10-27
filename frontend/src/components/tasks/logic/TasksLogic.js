@@ -8,19 +8,18 @@ function TasksLogic() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [added, setAdded] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitted(false);
     axiosAPI
       .post("/api/tasks/", { name: name, description: description })
       .then((response) => {
+        tasks.push(response.data);
         setName("");
         setDescription("");
         setAdded(true);
-        setSubmitted(true);
-      });
+      })
+      .catch((error) => {});
   };
 
   const handleCloseButton = (e) => {
@@ -39,28 +38,31 @@ function TasksLogic() {
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
-    fetch(url, {
-      accept: "application/json",
-      "Accept-Language": "pl-pl",
-      mode: "cors",
-      "Content-Type": "application/json",
-      headers: {
-        Authorization: "JWT " + token,
+    if (tasks.length === 0) {
+      fetch(url, {
         accept: "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        }
-        throw Error(response.status);
+        "Accept-Language": "pl-pl",
+        mode: "cors",
+        "Content-Type": "application/json",
+        headers: {
+          Authorization: "JWT " + token,
+          accept: "application/json",
+        },
       })
-      .then((response) => response.json())
-      .then((data) => {
-        setTasks(data);
-      })
-      .catch((error) => console.log(error));
-  }, [submitted]);
+        .then((response) => {
+          if (response.ok) {
+            return response;
+          }
+          throw Error(response.status);
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          setTasks(data);
+        })
+        .catch((error) => console.log(error));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     added,
