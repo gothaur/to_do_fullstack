@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import TasksLogic from "../logic/TasksLogic";
 import TaskForm from "./TaskForm";
+import TaskView from "./TaskView";
 
 function TasksView() {
   const {
@@ -31,7 +32,14 @@ function TasksView() {
         handleSubmit={handleSubmit}
         name={name}
       />
-      <table className="table table-hover">
+      {/* <div className="container"> */}
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+        {tasks.map((task) => (
+          <TaskView task={task} />
+        ))}
+      </div>
+      {/* </div> */}
+      {/* <table className="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -50,7 +58,7 @@ function TasksView() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </Fragment>
   );
 }
