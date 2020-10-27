@@ -6,7 +6,6 @@ from django.contrib.auth import (
     get_user_model,
 )
 from rest_framework.generics import (
-    # CreateAPIView,
     ListCreateAPIView,
     RetrieveUpdateDestroyAPIView,
 )
@@ -17,7 +16,6 @@ from rest_framework.authentication import (
 )
 
 from rest_framework.permissions import (
-    AllowAny,
     IsAuthenticated,
 )
 
@@ -26,15 +24,6 @@ from tasks.models import (
 )
 
 User = get_user_model()
-
-
-# class UserCreateAPIView(CreateAPIView):
-
-#     model = User
-#     permission_classes = (
-#         AllowAny,
-#     )
-#     serializer_class = UserSerializer
 
 
 class TaskRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
@@ -48,6 +37,9 @@ class TaskRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
 
 class TasksAPIListView(ListCreateAPIView):
 
+    # authentication_classes = (
+    #     IsAuthenticated,
+    # )
     filter_fields = (
         'completed',
         'name',

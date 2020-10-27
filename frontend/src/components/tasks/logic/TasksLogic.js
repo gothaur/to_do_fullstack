@@ -8,15 +8,18 @@ function TasksLogic() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [added, setAdded] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitted(false);
     axiosAPI
-      .post(url, { name: name, description: description })
+      .post("/api/tasks/", { name: name, description: description })
       .then((response) => {
         setName("");
         setDescription("");
         setAdded(true);
+        setSubmitted(true);
       });
   };
 
@@ -57,7 +60,7 @@ function TasksLogic() {
         setTasks(data);
       })
       .catch((error) => console.log(error));
-  }, [tasks]);
+  }, [submitted]);
 
   return {
     added,

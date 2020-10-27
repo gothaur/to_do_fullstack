@@ -58,6 +58,7 @@ function TasksView() {
                     aria-describedby="emailHelp"
                     value={name}
                     onChange={handleNameChange}
+                    required
                   />
                 </div>
                 <div className="form-group">
@@ -68,6 +69,7 @@ function TasksView() {
                     id="exampleInputPassword1"
                     value={description}
                     onChange={handleDescriptionChange}
+                    required
                   />
                 </div>
                 <div className="modal-footer">
