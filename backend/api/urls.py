@@ -8,5 +8,6 @@ from api.views import (
 app_name = 'api'
 urlpatterns = [
     path('tasks/', TasksAPIListView.as_view(), name='task-list'),
-    path('tasks/<int:pk>/', TaskRetrieveUpdateDestroyAPIView.as_view(), name='task-list'),
+    path('tasks/<int:pk>/', TaskRetrieveUpdateDestroyAPIView.as_view(),
+         name='task-detail'),
 ]
