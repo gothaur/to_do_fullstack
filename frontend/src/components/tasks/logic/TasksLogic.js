@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
 import axiosAPI from "../../../services/axiosAPI";
-// import Cookies from "js-cookie";
-import axiosInstance from "../../../services/axiosAPI";
-
-// const url = "http://0.0.0.0:8000/api/tasks/";
 
 function TasksLogic() {
   const [added, setAdded] = useState(false);
@@ -31,12 +27,6 @@ function TasksLogic() {
         setAdded(true);
       })
       .catch((error) => {
-        // console.log(
-        //   `JSON.stringify(error.response: ${JSON.stringify(error.response)}`
-        // );
-        // console.log(
-        //   `error.response.data.deadline: ${error.response.data.deadline}`
-        // );
         setErrorMsg(error.response.data.deadline);
         console.log(errorMsg);
       });
@@ -66,31 +56,8 @@ function TasksLogic() {
   };
 
   useEffect(() => {
-    // const token = sessionStorage.getItem("access_token");
-    // const token = Cookies.get("access_token");
     if (tasks.length === 0) {
-      // fetch(url, {
-      //   accept: "application/json",
-      //   "Accept-Language": "pl-pl",
-      //   mode: "cors",
-      //   "Content-Type": "application/json",
-      //   headers: {
-      //     Authorization: "JWT " + token,
-      //     accept: "application/json",
-      //   },
-      // })
-      //   .then((response) => {
-      //     if (response.ok) {
-      //       return response;
-      //     }
-      //     throw Error(response.status);
-      //   })
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     setTasks(data);
-      //   })
-      //   .catch((error) => console.log(error));
-      axiosInstance
+      axiosAPI
         .get("/api/tasks/")
         .then((response) => {
           setTasks(response.data);

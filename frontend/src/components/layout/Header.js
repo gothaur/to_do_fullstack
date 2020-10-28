@@ -4,12 +4,9 @@ import axiosInstance from "../../services/axiosAPI";
 import Cookies from "js-cookie";
 
 const handleLogout = () => {
-  // localStorage.removeItem("access_token");
-  // localStorage.removeItem("refresh_token");
   Cookies.remove("access_token");
   Cookies.remove("refresh_token");
   axiosInstance.defaults.headers["Authorization"] = null;
-  // window.location.href = "/login";
 };
 
 function Header() {

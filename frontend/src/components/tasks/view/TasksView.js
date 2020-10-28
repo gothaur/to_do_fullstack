@@ -32,33 +32,11 @@ function TasksView() {
         handleSubmit={handleSubmit}
         name={name}
       />
-      {/* <div className="container"> */}
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+      <div className="card-deck">
         {tasks.map((task) => (
           <TaskView task={task} key={task.id} />
         ))}
       </div>
-      {/* </div> */}
-      {/* <table className="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Zadanie</th>
-            <th scope="col">Opis</th>
-            <th scope="col">Zrobione</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task, index) => (
-            <tr key={task.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{task.name}</td>
-              <td>{task.description}</td>
-              <td>{task.completed ? "Tak" : "Nie"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
     </Fragment>
   );
 }

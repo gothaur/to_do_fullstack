@@ -7,12 +7,6 @@ const axiosInstance = axios.create({
   baseURL,
   timeout: 5000,
   headers: {
-    // Authorization: localStorage.getItem("access_token")
-    //   ? "JWT " + localStorage.getItem("access_token")
-    //   : null,
-    // Authorization: sessionStorage.getItem("access_token")
-    //   ? `JWT ${sessionStorage.getItem("access_token")}`
-    //   : null,
     Authorization: Cookies.get("access_token")
       ? `JWT ${Cookies.get("access_token")}`
       : null,
@@ -29,7 +23,7 @@ axiosInstance.interceptors.response.use(
     // Prevent infinite loops
     if (
       error.response.status === 401 &&
-      originalRequest.url === baseURL + "/auth/token/refresh/"
+      originalRequest.url === baseURL + "auth/token/refresh/"
     ) {
       window.location.href = "/login";
       return Promise.reject(error);
@@ -48,7 +42,7 @@ axiosInstance.interceptors.response.use(
 
         // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000);
-        console.log(tokenParts.exp);
+        // console.log(`token.exp: ${tokenParts.exp}`);
 
         if (tokenParts.exp > now) {
           return axiosInstance
@@ -67,7 +61,7 @@ axiosInstance.interceptors.response.use(
               return axiosInstance(originalRequest);
             })
             .catch((err) => {
-              console.log(err);
+              console.log(`axios.iterceptor.error: ${err}`);
             });
         } else {
           console.log("Refresh token is expired", tokenParts.exp, now);

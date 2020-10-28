@@ -20,23 +20,23 @@ const TaskForm = (props) => {
         type="button"
         className="btn btn-dark mb-3"
         data-toggle="modal"
-        data-target="#staticBackdrop"
+        data-target="#newTask"
       >
         Dodaj zadanie
       </button>
       <div
         className="modal fade"
-        id="staticBackdrop"
+        id="newTask"
         data-backdrop="static"
         data-keyboard="false"
         tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
+        aria-labelledby="newTaskLabel"
         aria-hidden="true"
       >
         <div className="modal-dialog modal-dialog-centered">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="staticBackdropLabel">
+              <h5 className="modal-title" id="newTaskLabel">
                 Nowe zadanie
               </h5>
               <button

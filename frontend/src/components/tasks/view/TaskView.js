@@ -1,24 +1,50 @@
 import React, { Fragment } from "react";
+import TaskDetail from "./TaskDetail";
 
 const TaskView = (props) => {
   const { task } = props;
 
+  const textSuccess = task.completed ? "text-success" : "";
+
+  const calculateDate = () => {
+    const currentTime = new Date();
+    const deadline = new Date(task.deadline);
+    const daysLeft = deadline - currentTime;
+    return Math.ceil(daysLeft / (60 * 60 * 24 * 1000));
+  };
+
+  const displayText = () => {
+    let msg = "Zadanie ukończone";
+    const numberOfDays = calculateDate();
+    if (calculateDate() < 0) {
+      return "Zakończone niepowodzeniem";
+    } else if (!task.completed) {
+      if (numberOfDays > 1) {
+        msg = `Do końca: ${numberOfDays} dni`;
+      } else {
+        msg = "Do końca: 1 dzień";
+      }
+    }
+    return msg;
+  };
+
   return (
     <Fragment>
-      <div className="col mb-4">
-        <div className="card h-100 mb-3" style={{ width: "18rem" }}>
-          <div className="card-body">
-            <h5 className="card-title">{task.name}</h5>
-            <h6 className="card-subtitle mb-2 text-muted">
-              {task.completed ? "Skończone" : "Aktywne"}
-            </h6>
-            <p className="card-text">{task.description}</p>
-            <a href="#" className="card-link">
-              Card link
-            </a>
-            <a href="#" className="card-link">
-              Another link
-            </a>
+      <div className="hovered">
+        <div
+          className={`card border-${
+            task.completed ? "success" : "secondary"
+          } mb-3`}
+          style={{ maxWidth: "18rem", minWidth: "18rem" }}
+          data-toggle="modal"
+          data-target={`#taskDetail-${task.id}`}
+        >
+          <TaskDetail task={task} />
+          <div className={`card-header ${textSuccess}`}>{task.name}</div>
+          <div className={`card-body ${textSuccess}`}>
+            <p className="card-text">
+              <small className="text-muted">{displayText()}</small>
+            </p>
           </div>
         </div>
       </div>

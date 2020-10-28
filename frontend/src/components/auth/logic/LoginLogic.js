@@ -21,8 +21,6 @@ function LoginLogic() {
       .then((response) => {
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + response.data.access;
-        // localStorage.setItem("access_token", response.data.access);
-        // localStorage.setItem("refresh_token", response.data.refresh);
         Cookies.set("access_token", response.data.access, {
           expires: 1,
           path: "",
@@ -31,8 +29,6 @@ function LoginLogic() {
           expires: 7,
           path: "",
         });
-        // sessionStorage.setItem("access_token", response.data.access);
-        // sessionStorage.setItem("refresh_token", response.data.refresh);
         setLoading(false);
         setUsername("");
         setPassword("");
