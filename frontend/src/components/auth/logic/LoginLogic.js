@@ -22,11 +22,11 @@ function LoginLogic() {
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + response.data.access;
         Cookies.set("access_token", response.data.access, {
-          expires: 1,
+          // expires: 1,
           path: "",
         });
         Cookies.set("refresh_token", response.data.refresh, {
-          expires: 7,
+          // expires: 7,
           path: "",
         });
         setLoading(false);

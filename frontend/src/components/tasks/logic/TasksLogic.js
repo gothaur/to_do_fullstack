@@ -9,6 +9,30 @@ function TasksLogic() {
   const [name, setName] = useState("");
   const [tasks, setTasks] = useState([]);
 
+  const handleDeleteClick = (task) => {
+    axiosAPI
+      .delete(`/api/tasks/${task.id}/`)
+      .then((res) => {
+        const refreshed = tasks.filter((value) => task.id !== value.id);
+        if (res.status === 204) {
+          setTasks(refreshed);
+        }
+        console.log("res", res);
+      })
+      .catch((error) => {
+        console.log("coś poszło nie tak", error);
+      });
+  };
+
+  const handleUpdateClick = (task) => {
+    axiosAPI.put(`/api/tasks/${task.id}/`, {
+      name: task.name,
+      description: task.description,
+      deadline: task.deadline,
+      completed: true,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(axiosAPI.headers);
@@ -19,7 +43,7 @@ function TasksLogic() {
         deadline: deadline,
       })
       .then((response) => {
-        tasks.push(response.data);
+        setTasks([...tasks, response.data]);
         setName("");
         setDescription("");
         setDeadline("");
@@ -74,9 +98,11 @@ function TasksLogic() {
     errorMsg,
     handleCloseButton,
     handleDeadlineChange,
+    handleDeleteClick,
     handleDescriptionChange,
     handleNameChange,
     handleSubmit,
+    handleUpdateClick,
     name,
     tasks,
   };

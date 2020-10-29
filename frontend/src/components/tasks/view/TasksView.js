@@ -34,7 +34,7 @@ function TasksView() {
       />
       <div className="card-deck">
         {tasks.map((task) => (
-          <TaskView task={task} key={task.id} />
+          <TaskView task={task} key={task.id} tasks={tasks} />
         ))}
       </div>
     </Fragment>

@@ -1,21 +1,10 @@
 import React, { Fragment } from "react";
-import axiosAPI from "../../../services/axiosAPI";
+import TasksLogic from "../logic/TasksLogic";
 
-const TaskDetail = (props) => {
+const TaskDetailView = (props) => {
   const { task } = props;
 
-  const handleDeleteClick = () => {
-    axiosAPI.delete(`/api/tasks/${task.id}`);
-  };
-
-  const handleUpdateClick = () => {
-    axiosAPI.put(`/api/tasks/${task.id}/`, {
-      name: task.name,
-      description: task.description,
-      deadline: task.deadline,
-      completed: true,
-    });
-  };
+  const { handleDeleteClick, handleUpdateClick } = TasksLogic();
 
   return (
     <Fragment>
@@ -57,14 +46,14 @@ const TaskDetail = (props) => {
                     type="button"
                     className="btn btn-danger mr-2"
                     //   data-dismiss="modal"
-                    onClick={handleDeleteClick}
+                    onClick={() => handleDeleteClick(task)}
                   >
                     Usuń
                   </button>
                   <button
                     type="submit"
                     className="btn btn-dark"
-                    onClick={handleUpdateClick}
+                    onClick={() => handleUpdateClick(task)}
                     disabled={task.completed}
                   >
                     Zrobione
@@ -79,4 +68,4 @@ const TaskDetail = (props) => {
   );
 };
 
-export default TaskDetail;
+export default TaskDetailView;

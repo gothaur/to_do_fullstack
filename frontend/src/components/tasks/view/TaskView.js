@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import TaskDetail from "./TaskDetail";
+import TaskDetailView from "./TaskDetailView";
 
 const TaskView = (props) => {
-  const { task } = props;
+  const { task, tasks } = props;
 
   const textSuccess = task.completed ? "text-success" : "";
 
@@ -39,7 +39,7 @@ const TaskView = (props) => {
           data-toggle="modal"
           data-target={`#taskDetail-${task.id}`}
         >
-          <TaskDetail task={task} />
+          <TaskDetailView task={task} tasks={tasks} />
           <div className={`card-header ${textSuccess}`}>{task.name}</div>
           <div className={`card-body ${textSuccess}`}>
             <p className="card-text">

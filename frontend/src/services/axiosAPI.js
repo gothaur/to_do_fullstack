@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
     }
 
     if (
-      // error.response.data.code === "token_not_valid" &&
+      error.response.data.code === "token_not_valid" &&
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
@@ -50,8 +50,8 @@ axiosInstance.interceptors.response.use(
             .then((response) => {
               // sessionStorage.setItem("access_token", response.data.access);
               // sessionStorage.setItem("refresh_token", response.data.refresh);
-              Cookies.get("access_token", response.data.access);
-              Cookies.get("refresh_token", response.data.refresh);
+              Cookies.set("access_token", response.data.access);
+              Cookies.set("refresh_token", response.data.refresh);
 
               axiosInstance.defaults.headers["Authorization"] =
                 "JWT " + response.data.access;
