@@ -17,7 +17,7 @@ const TaskView = (props) => {
     let msg = "Zadanie ukończone";
     const numberOfDays = calculateDate();
     if (calculateDate() < 0) {
-      return "Zakończone niepowodzeniem";
+      msg = "Zakończone niepowodzeniem";
     } else if (!task.completed) {
       if (numberOfDays > 1) {
         msg = `Do końca: ${numberOfDays} dni`;

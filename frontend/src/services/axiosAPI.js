@@ -30,7 +30,7 @@ axiosInstance.interceptors.response.use(
     }
 
     if (
-      error.response.data.code === "token_not_valid" &&
+      // error.response.data.code === "token_not_valid" &&
       error.response.status === 401 &&
       error.response.statusText === "Unauthorized"
     ) {
