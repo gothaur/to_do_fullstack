@@ -47,7 +47,14 @@ class TasksAPIListView(ListCreateAPIView):
     serializer_class = TaskSerializer
 
     def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+
+        return Task.objects.filter(
+            owner=self.request.user,
+        ).order_by(
+            'deadline',
+            '-completed',
+            'created_date',
+        )
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

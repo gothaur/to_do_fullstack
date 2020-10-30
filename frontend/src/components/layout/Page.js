@@ -7,13 +7,10 @@ import HomePageView from "../content/HomePageView";
 import NotFound from "../content/NotFound";
 
 const Page = (props) => {
-  // console.log("propsy w page: ", props);
-  // const newProp = props;
   return (
     <Switch>
       <Route path="/" exact component={HomePageView} />
       <Route path="/tasks" exact component={TasksView} />
-      {/* <Route path="/login" exact component={LoginView} /> */}
       <Route path="/login" exact render={() => <LoginView {...props} />} />
       <Route path="/register" exact component={RegisterView} />
       <Route path="" component={NotFound} />

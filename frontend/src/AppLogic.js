@@ -40,7 +40,7 @@ function AppLogic() {
         setUsername("");
         setPassword("");
         setLoggedIn(true);
-        // Cookies.set("username", username);
+        Cookies.set("username", username);
         setUser(username);
       })
       .catch((error) => {
@@ -70,7 +70,7 @@ function AppLogic() {
     Cookies.remove("username");
     axiosInstance.defaults.headers["Authorization"] = null;
     setLoggedIn(false);
-    console.log("nastąpiło wylogowanie");
+    localStorage.clear();
   };
 
   return {

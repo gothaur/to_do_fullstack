@@ -39,7 +39,10 @@ const TaskView = (props) => {
               ? "success"
               : `${calculateDate() < 0 ? "danger" : "secondary"}`
           } mb-3`}
-          style={{ maxWidth: "18rem", minWidth: "18rem" }}
+          style={{
+            maxWidth: "20rem",
+            minWidth: "20rem",
+          }}
           data-toggle="modal"
           data-target={`#taskDetail-${task.id}`}
         >

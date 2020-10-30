@@ -21,37 +21,49 @@ function Header(props) {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            {/* <NavLink to="/login" className="nav-link">
-              Zaloguj
-            </NavLink> */}
+            <NavLink to="/" className="nav-link">
+              Strona główna
+            </NavLink>
           </li>
+          {/* <li className="nav-item">
+            <NavLink to="/tasks" className="nav-link">
+              Zadania
+            </NavLink>
+          </li> */}
           {loggedIn ? (
-            <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                {loggedIn ? user : "Dropdown"}
-                {/* Dropdown */}
-              </NavLink>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                {/* <NavLink className="dropdown-item" to="/register">
+            <div className="row justify-content-start">
+              <li className="nav-item ml-3">
+                <NavLink to="/tasks" className="nav-link">
+                  Zadania
+                </NavLink>
+              </li>
+              <li className="nav-item dropdown">
+                <NavLink
+                  className="nav-link dropdown-toggle"
+                  to="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  {loggedIn ? user : "Dropdown"}
+                  {/* Dropdown */}
+                </NavLink>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  {/* <NavLink className="dropdown-item" to="/register">
                   Zarejestruj
                 </NavLink> */}
-                <NavLink className="dropdown-item" to="/">
-                  Another action
-                </NavLink>
-                <div className="dropdown-divider"></div>
-                <NavLink className="dropdown-item" to="/">
-                  Something else here
-                </NavLink>
-              </div>
-            </li>
+                  <NavLink className="dropdown-item" to="/">
+                    Another action
+                  </NavLink>
+                  <div className="dropdown-divider"></div>
+                  <NavLink className="dropdown-item" to="/">
+                    Something else here
+                  </NavLink>
+                </div>
+              </li>
+            </div>
           ) : (
             <NavLink
               className="btn btn-outline-success my-2 my-sm-0"

@@ -33,6 +33,9 @@ services:
       context: .
       dockerfile: ./frontend/Dockerfile
     command: npm start
+    # command: bash -c "npm install -g serve && serve -s build"
+    # command: npm install -g serve
+    # command: serve -s build
     volumes:
       - ./frontend:/app/frontend
     ports:

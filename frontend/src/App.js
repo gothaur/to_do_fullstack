@@ -21,7 +21,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header handleLogout={handleLogout} loggedIn={loggedIn} user={user} />
-      <div className="container">
+      <div className="container" style={{ textAlign: "center" }}>
         <Page
           handleLogin={handleLogin}
           onChangePassword={onChangePassword}

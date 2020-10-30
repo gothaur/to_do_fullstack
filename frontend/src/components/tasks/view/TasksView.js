@@ -48,7 +48,7 @@ function TasksView() {
       >
         Tylko aktywne
       </button>
-      <div className="card-deck">
+      <div className="card-deck" style={{ justifyContent: "center" }}>
         {tasks.map((task) => (
           <TaskView
             task={task}
