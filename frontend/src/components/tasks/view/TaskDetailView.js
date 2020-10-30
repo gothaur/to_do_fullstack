@@ -1,10 +1,7 @@
 import React, { Fragment } from "react";
-import TasksLogic from "../logic/TasksLogic";
 
 const TaskDetailView = (props) => {
-  const { task } = props;
-
-  const { handleDeleteClick, handleUpdateClick } = TasksLogic();
+  const { task, handleDeleteClick, handleUpdateClick } = props;
 
   return (
     <Fragment>
@@ -45,7 +42,7 @@ const TaskDetailView = (props) => {
                   <button
                     type="button"
                     className="btn btn-danger mr-2"
-                    //   data-dismiss="modal"
+                    data-dismiss="modal"
                     onClick={() => handleDeleteClick(task)}
                   >
                     Usuń

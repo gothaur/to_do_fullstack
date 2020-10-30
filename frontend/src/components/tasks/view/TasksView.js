@@ -9,11 +9,15 @@ function TasksView() {
     deadline,
     description,
     errorMsg,
+    handleActiveButton,
     handleCloseButton,
     handleDeadlineChange,
     handleDescriptionChange,
+    handleDeleteClick,
     handleNameChange,
+    handleShowAllButton,
     handleSubmit,
+    handleUpdateClick,
     name,
     tasks,
   } = TasksLogic();
@@ -32,9 +36,26 @@ function TasksView() {
         handleSubmit={handleSubmit}
         name={name}
       />
+      <button
+        className="btn btn-secondary mb-3 ml-3"
+        onClick={handleShowAllButton}
+      >
+        Pokaż wszystko
+      </button>
+      <button
+        className="btn btn-secondary mb-3 ml-3"
+        onClick={handleActiveButton}
+      >
+        Tylko aktywne
+      </button>
       <div className="card-deck">
         {tasks.map((task) => (
-          <TaskView task={task} key={task.id} tasks={tasks} />
+          <TaskView
+            task={task}
+            key={task.id}
+            handleDeleteClick={handleDeleteClick}
+            handleUpdateClick={handleUpdateClick}
+          />
         ))}
       </div>
     </Fragment>

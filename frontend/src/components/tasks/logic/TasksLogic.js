@@ -4,10 +4,12 @@ import axiosAPI from "../../../services/axiosAPI";
 function TasksLogic() {
   const [added, setAdded] = useState(false);
   const [deadline, setDeadline] = useState("");
+  const [updated, setUpdated] = useState(false);
   const [description, setDescription] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [name, setName] = useState("");
   const [tasks, setTasks] = useState([]);
+  const [urlParams, setUrlParams] = useState("completed=false");
 
   const handleDeleteClick = (task) => {
     axiosAPI
@@ -17,7 +19,6 @@ function TasksLogic() {
         if (res.status === 204) {
           setTasks(refreshed);
         }
-        console.log("res", res);
       })
       .catch((error) => {
         console.log("coś poszło nie tak", error);
@@ -25,12 +26,16 @@ function TasksLogic() {
   };
 
   const handleUpdateClick = (task) => {
-    axiosAPI.put(`/api/tasks/${task.id}/`, {
-      name: task.name,
-      description: task.description,
-      deadline: task.deadline,
-      completed: true,
-    });
+    axiosAPI
+      .put(`/api/tasks/${task.id}/`, {
+        name: task.name,
+        description: task.description,
+        deadline: task.deadline,
+        completed: true,
+      })
+      .then((response) => {
+        setUpdated((updated) => !updated);
+      });
   };
 
   const handleSubmit = (e) => {
@@ -43,7 +48,7 @@ function TasksLogic() {
         deadline: deadline,
       })
       .then((response) => {
-        setTasks([...tasks, response.data]);
+        // setTasks([...tasks, response.data]);
         setName("");
         setDescription("");
         setDeadline("");
@@ -52,7 +57,7 @@ function TasksLogic() {
       })
       .catch((error) => {
         setErrorMsg(error.response.data.deadline);
-        console.log(errorMsg);
+        console.log("error", errorMsg);
       });
   };
 
@@ -79,28 +84,38 @@ function TasksLogic() {
     setName(value);
   };
 
+  const handleShowAllButton = (e) => {
+    setUrlParams("completed=");
+  };
+
+  const handleActiveButton = (e) => {
+    setUrlParams("completed=false");
+  };
+
   useEffect(() => {
-    if (tasks.length === 0) {
-      axiosAPI
-        .get("/api/tasks/")
-        .then((response) => {
-          setTasks(response.data);
-        })
-        .catch((error) => {});
-    }
+    // if (tasks.length === 0) {
+    axiosAPI
+      .get(`/api/tasks/?${urlParams}`)
+      .then((response) => {
+        setTasks(response.data);
+      })
+      .catch((error) => {});
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [added, updated, urlParams]);
 
   return {
     added,
     deadline,
     description,
     errorMsg,
+    handleActiveButton,
     handleCloseButton,
     handleDeadlineChange,
     handleDeleteClick,
     handleDescriptionChange,
     handleNameChange,
+    handleShowAllButton,
     handleSubmit,
     handleUpdateClick,
     name,

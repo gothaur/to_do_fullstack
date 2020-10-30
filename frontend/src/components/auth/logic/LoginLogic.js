@@ -26,13 +26,15 @@ function LoginLogic() {
           path: "",
         });
         Cookies.set("refresh_token", response.data.refresh, {
-          // expires: 7,
+          expires: 14,
           path: "",
         });
+        console.log(response.data);
         setLoading(false);
         setUsername("");
         setPassword("");
         setLoggedIn(true);
+        Cookies.set("username", username);
       })
       .catch((error) => {
         if (error.response.status === 401) {

@@ -3,18 +3,16 @@ import { Link, NavLink } from "react-router-dom";
 import axiosInstance from "../../services/axiosAPI";
 import Cookies from "js-cookie";
 
-const handleLogout = () => {
-  Cookies.remove("access_token");
-  Cookies.remove("refresh_token");
-  axiosInstance.defaults.headers["Authorization"] = null;
-};
-
 function Header() {
+  const handleLogout = () => {
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
+    Cookies.remove("username");
+    axiosInstance.defaults.headers["Authorization"] = null;
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
-      <NavLink to="/" className="navbar-brand">
-        Navbar
-      </NavLink>
       <button
         className="navbar-toggler"
         type="button"
@@ -29,11 +27,6 @@ function Header() {
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item active">
-            <NavLink to="/" className="nav-link">
-              Home <span className="sr-only">(current)</span>
-            </NavLink>
-          </li>
           <li className="nav-item">
             <NavLink to="/login" className="nav-link">
               Zaloguj
@@ -64,32 +57,7 @@ function Header() {
               </NavLink>
             </div>
           </li>
-          <li className="nav-item">
-            <NavLink
-              className="nav-link disabled"
-              to="/"
-              tabIndex="-1"
-              aria-disabled="true"
-            >
-              Disabled
-            </NavLink>
-          </li>
         </ul>
-        <form className="form-inline my-2 my-lg-0">
-          <input
-            className="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button
-            className="btn btn-outline-success my-2 my-sm-0 mb-3"
-            type="submit"
-          >
-            Search
-          </button>
-        </form>
-        &nbsp;&nbsp;
         <Link to="/login">
           <button
             className="btn btn-outline-danger my-2 my-sm-0"
