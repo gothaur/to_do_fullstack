@@ -1,13 +1,20 @@
 import { useState } from "react";
-import axiosInstance from "../../../services/axiosAPI";
 import Cookies from "js-cookie";
 
-function LoginLogic() {
+import axiosInstance from "./services/axiosAPI";
+
+function AppLogic() {
+  const [user, setUser] = useState(
+    Cookies.get("username") ? Cookies.get("username") : ""
+  );
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(
+    Cookies.get("username") ? true : false
+  );
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -33,7 +40,8 @@ function LoginLogic() {
         setUsername("");
         setPassword("");
         setLoggedIn(true);
-        Cookies.set("username", username);
+        // Cookies.set("username", username);
+        setUser(username);
       })
       .catch((error) => {
         if (error.response.status === 401) {
@@ -56,13 +64,25 @@ function LoginLogic() {
     setUsername(username);
     setMessage("");
   };
+  const handleLogout = () => {
+    Cookies.remove("access_token");
+    Cookies.remove("refresh_token");
+    Cookies.remove("username");
+    axiosInstance.defaults.headers["Authorization"] = null;
+    setLoggedIn(false);
+    console.log("nastąpiło wylogowanie");
+  };
+
   return {
+    handleLogin,
+    handleLogout,
+    setUser,
+    user,
     username,
     password,
     loading,
     message,
     loggedIn,
-    handleLogin,
     onChangeUsername,
     onChangePassword,
     setMessage,
@@ -72,4 +92,4 @@ function LoginLogic() {
   };
 }
 
-export default LoginLogic;
+export default AppLogic;

@@ -1,23 +1,33 @@
 import React, { Fragment } from "react";
 import { Redirect } from "react-router-dom";
-import LoginLogic from "../logic/LoginLogic";
+// import LoginLogic from "../logic/LoginLogic";
 
-function LoginView() {
+function LoginView(props) {
   const {
+    handleLogin,
+    onChangeUsername,
+    onChangePassword,
     username,
     password,
     loading,
     message,
     loggedIn,
-    handleLogin,
-    onChangeUsername,
-    onChangePassword,
-  } = LoginLogic();
+  } = props;
+  // const {
+  // username,
+  // // password,
+  // loading,
+  // message,
+  // loggedIn,
+  // handleLogin,
+  // onChangeUsername,
+  // onChangePassword,
+  // } = LoginLogic();
 
   return (
     <Fragment>
       {loggedIn ? (
-        <Redirect to="/" />
+        <Redirect to="/tasks" />
       ) : (
         <div
           className="card"
