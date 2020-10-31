@@ -162,6 +162,7 @@ fabric.properties
 
 # production
 /build
+prod.yml
 
 # misc
 .DS_Store
