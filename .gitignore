@@ -178,6 +178,10 @@ yarn-error.log*
 /.idea
 /frontend/node_modules
 
+# ================== production ====================
+
+prod.yml
+
 # ================== IDE ====================
 .vscode
 .vscode/
