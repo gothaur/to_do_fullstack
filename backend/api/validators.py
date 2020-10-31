@@ -3,43 +3,61 @@ from rest_framework.validators import (
 )
 
 
-def validate_length(password):
-    if len(password) < 8:
-        raise ValidationError(
-            'Hasło nie może być krótsze niż 8 znaków'
-        )
-
-
-def validate_digit(password):
-    if not any(char.isdigit() for char in password):
-        raise ValidationError(
-            "Hasło musi zawierać conajmniej jedną cyfrę"
-        )
-
-
-def validate_upper(password):
-    if not any(char.isupper() for char in password):
-        raise ValidationError(
-            "Hasło musi zawierać conajmniej jedną wielką literę"
-        )
-
-
-def validate_special_character(password):
-    if not any(char in password for char in "!@#$%^&*()"):
-        raise ValidationError(
-            'Hasło musi zawierać conajmniej jeden ze znaków !@#$%^&*()'
-        )
-
-
 def validate_password(password):
 
-    validators = [
-        validate_length,
-        validate_digit,
-        validate_upper,
-        validate_special_character,
-    ]
+    message = []
+    error = False
 
-    for validator in validators:
-        validator(password)
+    if len(password) < 8:
+        message.append('Hasło nie może być krótsze niż 8 znaków')
+        error = True
+
+    if not any(char.isdigit() for char in password):
+        message.append('Hasło musi zawierać conajmniej jedną cyfrę')
+        error = True
+
+    if not any(char.isupper() for char in password):
+        message.append('Hasło musi zawierać conajmniej jedną wielką literę')
+        error = True
+
+    if not any(char in password for char in "!@#$%^&*()"):
+        message.append(
+            'Hasło musi zawierać conajmniej jeden ze znaków !@#$%^&*()')
+        error = True
+
+    if error:
+        raise ValidationError(message)
+
     return True
+
+
+# from rest_framework.validators import (
+#     ValidationError
+# )
+
+
+# def validate_password(password):
+
+#     message = {}
+#     error = False
+
+#     if len(password) < 8:
+#         message['Długość'] = 'Hasło nie może być krótsze niż 8 znaków'
+#         error = True
+
+#     if not any(char.isdigit() for char in password):
+#         message['Cyfra'] = 'Hasło musi zawierać conajmniej jedną cyfrę'
+#         error = True
+
+#     if not any(char.isupper() for char in password):
+#         message['Wielka litera'] = 'Hasło musi zawierać conajmniej jedną wielką literę'
+#         error = True
+
+#     if not any(char in password for char in "!@#$%^&*()"):
+#         message['Znak specjalny'] = 'Hasło musi zawierać conajmniej jeden ze znaków !@#$%^&*()'
+#         error = True
+
+#     if error:
+#         raise ValidationError(message)
+
+#     return True

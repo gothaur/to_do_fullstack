@@ -42,6 +42,7 @@ const TaskView = (props) => {
           style={{
             maxWidth: "20rem",
             minWidth: "20rem",
+            cursor: "pointer",
           }}
           data-toggle="modal"
           data-target={`#taskDetail-${task.id}`}
