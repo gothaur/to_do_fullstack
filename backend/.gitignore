@@ -163,6 +163,7 @@ fabric.properties
 # production
 /build
 prod.yml
+Dockerfile.production
 
 # misc
 .DS_Store

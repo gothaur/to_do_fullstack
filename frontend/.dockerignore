@@ -1,0 +1,9 @@
+public
+node_modules
+src
+Dockerfile
+Dockerfile.production
+README.md
+package.json
+package-lock.json
+.gitignore
